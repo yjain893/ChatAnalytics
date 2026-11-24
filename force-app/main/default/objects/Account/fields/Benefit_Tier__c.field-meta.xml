@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Benefit_Tier__c</fullName>
+    <description>Customer&apos;s PCNA Benefit Level (not related to Catalog program)</description>
+    <label>Benefit Level</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>0.Tier0</fullName>
+                <default>false</default>
+                <label>0.Tier0</label>
+            </value>
+            <value>
+                <fullName>1.PCNA+ NAC</fullName>
+                <default>false</default>
+                <label>1.PCNA+ NAC</label>
+            </value>
+            <value>
+                <fullName>2.PCNA+ Level 5</fullName>
+                <default>false</default>
+                <label>2.PCNA+ Level 5</label>
+            </value>
+            <value>
+                <fullName>3.PCNA+ Level 4</fullName>
+                <default>false</default>
+                <label>3.PCNA+ Level 4</label>
+            </value>
+            <value>
+                <fullName>4.PCNA+ Level 3</fullName>
+                <default>false</default>
+                <label>4.PCNA+ Level 3</label>
+            </value>
+            <value>
+                <fullName>5.PCNA+ Level 2</fullName>
+                <default>false</default>
+                <label>5.PCNA+ Level 2</label>
+            </value>
+            <value>
+                <fullName>6.PCNA+ Level 1</fullName>
+                <default>true</default>
+                <label>6.PCNA+ Level 1</label>
+            </value>
+            <value>
+                <fullName>7.n/a</fullName>
+                <default>false</default>
+                <label>7.n/a</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

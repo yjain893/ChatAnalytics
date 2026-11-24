@@ -1,0 +1,59 @@
+system:
+    instructions: "You are Chat Analytics Agent. Analyze one prepared customer-service conversation at a time using its authoritative Salesforce transcript."
+    messages:
+        welcome: "I analyze prepared customer-service chat conversations."
+        error: "I could not retrieve the requested chat conversation."
+config:
+    developer_name: "Chat_Analytics_Agent"
+    agent_label: "Chat Analytics Agent"
+    description: "Analyzes one assembled customer-service chat transcript for problem, bot effectiveness, handoff, and outcome."
+    agent_type: "AgentforceEmployeeAgent"
+language:
+    default_locale: "en_US"
+    additional_locales: ""
+    all_additional_locales: False
+start_agent agent_router:
+    label: "Chat Analytics"
+    description: "Routes supplied Chat Conversation IDs to one focused analysis subagent."
+    reasoning:
+        instructions: ->
+            | Route every request to Chat Conversation Analysis.
+        actions:
+            go_to_chat_conversation_analysis: @utils.transition to @subagent.chat_conversation_analysis
+subagent chat_conversation_analysis:
+    label: "Chat Conversation Analysis"
+    description: "Reads one prepared transcript and produces neutral, PII-minimizing customer-service analytics."
+    actions:
+        get_chat_conversation_context:
+            label: "Get Chat Conversation Context"
+            description: "Read-only authoritative context for exactly one supplied Chat Conversation Salesforce record Id. Always call it once before analyzing."
+            inputs:
+                conversationRecordId: object
+                    description: "The Salesforce Chat Conversation record Id supplied in the request."
+                    is_required: True
+                    complex_data_type_name: "lightning__recordIdType"
+            outputs:
+                status: string
+                    description: "SUCCESS, NOT_CLOSED, NOT_PREPARED, or NOT_FOUND. Never analyze a response whose status is not SUCCESS."
+                conversationIdentifier: string
+                    description: "Source conversation identifier."
+                transcript: string
+                    description: "Prepared complete transcript in deterministic event order."
+                messageCount: integer
+                    description: "Raw event count."
+                hasHumanAgent: boolean
+                    description: "Whether an Agent role or speaker occurred."
+                startTimestamp: datetime
+                    description: "Earliest normalized timestamp where present."
+                endTimestamp: datetime
+                    description: "Latest normalized timestamp where present."
+            target: "apex://GetChatConversationContextAction"
+    reasoning:
+        instructions: ->
+            | Always call Get Chat Conversation Context exactly once for the supplied Chat Conversation Id. Analyze only its returned transcript when status is SUCCESS. If status is NOT_CLOSED, explain that the conversation is still open and cannot be analyzed. Do not infer a missing customer selection, repeat unnecessary PII, or treat menus, greetings, or boilerplate as the customer problem.
+              Determine customerProblem, customerIntent, botResolutionStatus, escalatedToHuman, finalResolutionBy, botFailureReason, analysisSummary, confidence, and concise evidence.
+              A transfer to a human is not bot resolution. Use Resolved only when the chatbot itself substantively completes the need before human assistance. Use Partially Resolved only when it materially helped but a human was still needed; Not Resolved when it did not address the need or handed it unresolved to a human; Indeterminate when evidence is insufficient. Set escalatedToHuman true for reliable handoff evidence or human participation. Use Bot, Human Agent, Unresolved, or Indeterminate only for finalResolutionBy. Use neutral factual wording and do not hallucinate a resolution.
+              Return these exact labeled values, with confidence from 0 through 1: customerProblem, customerIntent, botResolutionStatus, escalatedToHuman, finalResolutionBy, botFailureReason, analysisSummary, confidence, evidence.
+        actions:
+            get_chat_conversation_context: @actions.get_chat_conversation_context
+                with conversationRecordId=...

@@ -76,5 +76,18 @@
         <members>Chat_Analytics_Agent_v4</members>
         <name>GenAiPlannerBundle</name>
     </types>
+    <types>
+        <members>Chat_Analytics_Agent_1</members>
+        <members>Chat_Analytics_Agent_2</members>
+        <members>Chat_Analytics_Agent_3</members>
+        <members>Chat_Analytics_Agent_4</members>
+        <name>AiAuthoringBundle</name>
+    </types>
+    <types>
+        <members>Account.Benefit_Tier__c</members>
+        <members>Account.PCNA_ID__c</members>
+        <members>Account.Sales_Tier__c</members>
+        <name>CustomField</name>
+    </types>
     <version>68.0</version>
 </Package>

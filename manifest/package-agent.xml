@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Chat_Analytics_Agent</members>
+        <name>Bot</name>
+    </types>
+    <types>
+        <members>Chat_Analytics_Agent_v1</members>
+        <members>Chat_Analytics_Agent_v2</members>
+        <members>Chat_Analytics_Agent_v3</members>
+        <members>Chat_Analytics_Agent_v4</members>
+        <name>GenAiPlannerBundle</name>
+    </types>
+    <types>
+        <members>Chat_Analytics_Agent_1</members>
+        <members>Chat_Analytics_Agent_2</members>
+        <members>Chat_Analytics_Agent_3</members>
+        <members>Chat_Analytics_Agent_4</members>
+        <name>AiAuthoringBundle</name>
+    </types>
+    <version>68.0</version>
+</Package>

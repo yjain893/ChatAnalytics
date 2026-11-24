@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sales_Tier__c</fullName>
+    <description>Customer&apos;s Sales Segment</description>
+    <label>Sales Tier</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>0.Tier0</fullName>
+                <default>false</default>
+                <label>0.Tier0</label>
+            </value>
+            <value>
+                <fullName>1.FSM</fullName>
+                <default>false</default>
+                <label>1.FSM</label>
+            </value>
+            <value>
+                <fullName>2.ISR</fullName>
+                <default>false</default>
+                <label>2.ISR</label>
+            </value>
+            <value>
+                <fullName>3.MKTG</fullName>
+                <default>true</default>
+                <label>3.MKTG</label>
+            </value>
+            <value>
+                <fullName>4.n/a</fullName>
+                <default>false</default>
+                <label>4.n/a</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
