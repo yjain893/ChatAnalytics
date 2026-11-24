@@ -21,8 +21,13 @@ Retrieved via `manifest/package.xml` (see that file for the exact list):
 - **Custom Application**: `Chat_Analytics`
 - **Permission Set**: `Chat_Analytics_Access`
 - **Remote Site Setting**: `ChatAPi` (external API callout used by the analytics/Agentforce integration — verify the endpoint/credential before deploying to a new org)
+- **Agentforce Agent (prompt templates)**: the `Chat_Analytics_Agent` Bot and its 4 `GenAiPlannerBundle` versions (`Chat_Analytics_Agent_v1`–`v4`). This is where the actual prompt/topic instructions for analyzing chat transcripts live (`genAiPluginInstructions` in each bundle), along with the agent graph, agent script, and the `get_chat_conversation_context` local action wired to the `GetChatConversationContextAction` Apex class. `v4` is the active version; `v1`–`v3` are retained as history. The CLI's source-format retrieve only decomposes the active bot version automatically — the `v1`–`v3` `BotVersion` files in this repo were reconstructed from the raw metadata API payload to preserve the full history.
 
-No Flows, Validation Rules, or Workflow Rules were found attached to these objects in the source org, so none are included. `Chatbot_Input__c` and `Chat_Survey__c` have no dedicated Custom Tab in the source org.
+No Flows, Validation Rules, Workflow Rules, or custom metadata types (`__mdt`) were found tied to these 5 objects in the source org — the `Module_Parameter__mdt` and `Dashboard_User__mdt` records found during the search belong to unrelated features (a different chatbot's handoff text, and a sales dashboard recipient list) and were intentionally excluded. `Chatbot_Input__c` and `Chat_Survey__c` have no dedicated Custom Tab in the source org, and no standalone `GenAiPromptTemplate` records reference these objects.
+
+### Note on validating with a dry-run deploy
+
+Running `sf project deploy start --dry-run` **against the same `chatAnalyticsOrg` sandbox** will show ~41 expected failures: the scheduled Apex classes report pending/in-progress jobs, and `BotVersion v4` / `GenAiPlannerBundle v4` fail because that agent version is already active in that org. These are state conflicts from redeploying on top of the live source org, not metadata defects — 116+ other components validate cleanly, and a fresh target org (with no conflicting scheduled jobs or an already-active agent) will not hit them.
 
 ## Deploying to a new org
 

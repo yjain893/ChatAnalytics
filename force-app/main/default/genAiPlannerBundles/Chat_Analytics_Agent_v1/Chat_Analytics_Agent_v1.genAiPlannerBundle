@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Analyzes one assembled customer-service chat transcript for problem, bot effectiveness, handoff, and outcome.</description>
+    <localTopicLinks>
+        <genAiPluginName>agent_router_16jC40000002GLd</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>chat_conversation_analysis_16jC40000002GLd</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>agent_router_16jC40000002GLd</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Routes supplied Chat Conversation IDs to one focused analysis subagent.</description>
+        <developerName>agent_router_16jC40000002GLd</developerName>
+        <genAiPluginInstructions>
+            <description>You are Chat Analytics Agent. Analyze one prepared customer-service conversation at a time using its authoritative Salesforce transcript.</description>
+            <developerName>instruction0_179C40000002qVZ</developerName>
+            <language>en_US</language>
+            <masterLabel>instruction0_179C40000002qVZ</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localDeveloperName>agent_router</localDeveloperName>
+        <masterLabel>Chat Analytics</masterLabel>
+        <pluginType>Topic</pluginType>
+    </localTopics>
+    <localTopics>
+        <fullName>chat_conversation_analysis_16jC40000002GLd</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Reads one prepared transcript and produces neutral, PII-minimizing customer-service analytics.</description>
+        <developerName>chat_conversation_analysis_16jC40000002GLd</developerName>
+        <genAiPluginInstructions>
+            <description>You are Chat Analytics Agent. Analyze one prepared customer-service conversation at a time using its authoritative Salesforce transcript.</description>
+            <developerName>instruction0_179C40000002qVa</developerName>
+            <language>en_US</language>
+            <masterLabel>instruction0_179C40000002qVa</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>get_chat_conversation_context_179C40000002qVa</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>get_chat_conversation_context_179C40000002qVa</fullName>
+            <description>Read-only authoritative context for exactly one supplied Chat Conversation Salesforce record Id. Always call it once before analyzing.</description>
+            <developerName>get_chat_conversation_context_179C40000002qVa</developerName>
+            <invocationTarget>GetChatConversationContextAction</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>get_chat_conversation_context</localDeveloperName>
+            <masterLabel>Get Chat Conversation Context</masterLabel>
+        </localActions>
+        <localDeveloperName>chat_conversation_analysis</localDeveloperName>
+        <masterLabel>Chat Conversation Analysis</masterLabel>
+        <pluginType>Topic</pluginType>
+    </localTopics>
+    <masterLabel>Chat Analytics Agent</masterLabel>
+    <plannerType>Atlas__ConcurrentMultiAgentOrchestration</plannerType>
+</GenAiPlannerBundle>

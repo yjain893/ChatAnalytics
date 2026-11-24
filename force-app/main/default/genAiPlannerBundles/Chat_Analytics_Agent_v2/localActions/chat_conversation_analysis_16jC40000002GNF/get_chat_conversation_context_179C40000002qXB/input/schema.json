@@ -1,0 +1,14 @@
+{
+  "required" : [ "conversationRecordId" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "conversationRecordId" : {
+      "title" : "Conversation Record Id",
+      "description" : "The Salesforce Chat Conversation record Id supplied in the request.",
+      "lightning:type" : "lightning__recordIdType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

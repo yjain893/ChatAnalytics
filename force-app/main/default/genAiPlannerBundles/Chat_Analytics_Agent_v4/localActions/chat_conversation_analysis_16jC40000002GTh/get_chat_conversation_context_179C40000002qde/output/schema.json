@@ -1,0 +1,62 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "conversationIdentifier" : {
+      "title" : "Conversation Identifier",
+      "description" : "Source conversation identifier.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "endTimestamp" : {
+      "title" : "End Timestamp",
+      "description" : "Latest normalized timestamp where present.",
+      "lightning:type" : "lightning__dateTimeStringType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "hasHumanAgent" : {
+      "title" : "Has Human Agent",
+      "description" : "Whether an Agent role or speaker occurred.",
+      "lightning:type" : "lightning__booleanType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "messageCount" : {
+      "title" : "Message Count",
+      "description" : "Raw event count.",
+      "lightning:type" : "lightning__integerType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "startTimestamp" : {
+      "title" : "Start Timestamp",
+      "description" : "Earliest normalized timestamp where present.",
+      "lightning:type" : "lightning__dateTimeStringType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "status" : {
+      "title" : "Status",
+      "description" : "SUCCESS, NOT_CLOSED, NOT_PREPARED, or NOT_FOUND. Never analyze a response whose status is not SUCCESS.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "transcript" : {
+      "title" : "Transcript",
+      "description" : "Prepared complete transcript in deterministic event order.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}
