@@ -1,0 +1,13 @@
+public without sharing class GetChatConversationContextAction {
+    public class Request { @InvocableVariable(required=true label='Chat Conversation Id') public Id conversationRecordId; }
+    public class Response { @InvocableVariable(label='Status') public String status; @InvocableVariable(label='Conversation Identifier') public String conversationIdentifier; @InvocableVariable(label='Transcript') public String transcript; @InvocableVariable(label='Message Count') public Integer messageCount; @InvocableVariable(label='Has Human Agent') public Boolean hasHumanAgent; @InvocableVariable(label='Start Timestamp') public DateTime startTimestamp; @InvocableVariable(label='End Timestamp') public DateTime endTimestamp; }
+    @InvocableMethod(label='Get Chat Conversation Context' description='Read-only authoritative context for exactly one prepared Chat Conversation. Use the returned transcript to analyze that conversation only.')
+    public static List<Response> getContext(List<Request> requests) {
+        Set<Id> ids = new Set<Id>(); for (Request request : requests) if (request != null && request.conversationRecordId != null) ids.add(request.conversationRecordId);
+        Map<Id, Chat_Conversation__c> conversations = new Map<Id, Chat_Conversation__c>();
+        if (!ids.isEmpty()) for (SObject record : Database.queryWithBinds('SELECT Id, Conversation_Identifier__c, Conversation_Status__c, Transcript__c, Message_Count__c, Has_Human_Agent__c, Start_Timestamp__c, End_Timestamp__c FROM Chat_Conversation__c WHERE Id IN :ids', new Map<String, Object>{'ids'=>ids}, AccessLevel.SYSTEM_MODE)) { Chat_Conversation__c conversation=(Chat_Conversation__c)record; conversations.put(conversation.Id, conversation); }
+        List<Response> output = new List<Response>();
+        for (Request request : requests) { Response response = new Response(); Chat_Conversation__c c = request == null ? null : conversations.get(request.conversationRecordId); if (c == null) { response.status='NOT_FOUND'; } else if (c.Conversation_Status__c != 'Closed') { response.status='NOT_CLOSED'; response.conversationIdentifier=c.Conversation_Identifier__c; } else { response.status=String.isBlank(c.Transcript__c)?'NOT_PREPARED':'SUCCESS'; response.conversationIdentifier=c.Conversation_Identifier__c; response.transcript=c.Transcript__c; response.messageCount=c.Message_Count__c==null?0:Integer.valueOf(c.Message_Count__c); response.hasHumanAgent=c.Has_Human_Agent__c; response.startTimestamp=c.Start_Timestamp__c; response.endTimestamp=c.End_Timestamp__c; } output.add(response); }
+        return output;
+    }
+}

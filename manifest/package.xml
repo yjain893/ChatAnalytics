@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Chat_Analytics__c</members>
+        <members>Chat_Conversation__c</members>
+        <members>Chat_Message__c</members>
+        <members>Chat_Survey__c</members>
+        <members>Chatbot_Input__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>ChatAnalyticsAgentInvoker</members>
+        <members>ChatAnalyticsAgentProvider</members>
+        <members>ChatAnalyticsDashboardController</members>
+        <members>ChatAnalyticsDashboardControllerTest</members>
+        <members>ChatAnalyticsHistoricalImportFinalizer</members>
+        <members>ChatAnalyticsInvocationQueueable</members>
+        <members>ChatAnalyticsNormalizedAnalyticsTest</members>
+        <members>ChatAnalyticsOrchestrationTest</members>
+        <members>ChatAnalyticsOrchestrator</members>
+        <members>ChatAnalyticsProcessingTest</members>
+        <members>ChatAnalyticsQueueable</members>
+        <members>ChatAnalyticsScheduler</members>
+        <members>ChatAnalyticsService</members>
+        <members>ChatAnalyticsSystemContextProbe</members>
+        <members>ChatConversationRefreshQueueable</members>
+        <members>ChatMessageSystemImporter</members>
+        <members>ChatMessageTriggerHandler</members>
+        <members>ChatTranscriptBuilder</members>
+        <members>GetChatConversationContextAction</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>ChatMessageTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>Chat_Analytics__c-Chat Analytics Layout</members>
+        <members>Chatbot_Input__c-Chatbot Input Layout</members>
+        <members>Chat_Conversation__c-Chat Conversation Layout</members>
+        <members>Chat_Message__c-Chat Message Layout</members>
+        <members>Chat_Survey__c-Chat Survey Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>chatAnalyticsDashboard</members>
+        <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <members>Chat_Message__c</members>
+        <members>Chat_Analytics__c</members>
+        <members>Chat_Conversation__c</members>
+        <members>Chat_Analytics_Dashboard</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>Chat_Analytics</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>Chat_Analytics_Access</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
+        <members>ChatAPi</members>
+        <name>RemoteSiteSetting</name>
+    </types>
+    <version>68.0</version>
+</Package>
