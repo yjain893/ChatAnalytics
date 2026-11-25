@@ -26,6 +26,8 @@ Retrieved via `manifest/package.xml` (see that file for the exact list):
 
 No Flows, Validation Rules, Workflow Rules, or custom metadata types (`__mdt`) were found tied to these 5 objects in the source org — the `Module_Parameter__mdt` and `Dashboard_User__mdt` records found during the search belong to unrelated features (a different chatbot's handoff text, and a sales dashboard recipient list) and were intentionally excluded. `Chatbot_Input__c` and `Chat_Survey__c` have no dedicated Custom Tab in the source org, and no standalone `GenAiPromptTemplate` records reference these objects.
 
+Not included, and not deployable as metadata: the `ChatAnalyticsSchedulerDaily` scheduled job. It's a `CronTrigger` (runtime data created by `System.schedule(...)`), not a metadata component — see step 7 under "Deploying to a new org" for how to re-create it in a target org.
+
 ### Note on validating with a dry-run deploy
 
 Running `sf project deploy start --dry-run` **against the same `chatAnalyticsOrg` sandbox** will show ~41 expected failures: the scheduled Apex classes report pending/in-progress jobs, and `BotVersion v4` / `GenAiPlannerBundle v4` fail because that agent version is already active in that org. These are state conflicts from redeploying on top of the live source org, not metadata defects — 116+ other components validate cleanly, and a fresh target org (with no conflicting scheduled jobs or an already-active agent) will not hit them.
@@ -61,6 +63,11 @@ sf agent activate --api-name Chat_Analytics_Agent --version 4 --target-org targe
      --class-names ChatAnalyticsNormalizedAnalyticsTest --class-names ChatAnalyticsOrchestrationTest \
      --class-names ChatAnalyticsProcessingTest --result-format human --wait 10 --code-coverage
    ```
+7. Schedule the daily analytics batch job. The `ChatAnalyticsSchedulerDaily` scheduled job (cron `0 0 1 * * ?`, 01:00 Asia/Kolkata) is **runtime data** (a `CronTrigger` created by `System.schedule(...)`), not deployable metadata — it has to be (re-)created in the target org by running:
+   ```bash
+   sf apex run --file scripts/apex/schedule_chat_analytics_daily.apex --target-org targetOrg
+   ```
+   This calls `ChatAnalyticsScheduler.scheduleDaily()`, which aborts any existing `ChatAnalyticsSchedulerDaily` job first and re-schedules it, so it's safe to run more than once.
 
 ### Deployed to `serviceOrg`
 
